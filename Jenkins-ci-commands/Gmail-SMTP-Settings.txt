@@ -1,0 +1,10 @@
+SMTP Server: smtp.gmail.com
+SMTP Port: 465:SSl  587: TLS
+tick Use SMTP authentification
+tick SMTP TLS/SSL
+
+prakash.badhe@vishwasoft.in
+
+   
+
+

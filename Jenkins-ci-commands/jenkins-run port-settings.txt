@@ -1,0 +1,94 @@
+To run jenkins 
+
+java -jar jenkins.war runs Jenkins at  port 8080
+
+To get the help
+java -jar jenkins.war --help
+
+To change the jenkins port 
+
+To run Jenkins web console at 9090
+java -jar jenkins-ver.2.249.1.war --httpPort=9090 
+
+b6a8fde764274fdf9c2f5449bc780ac2     
+
+     
+java -jar jenkins.war --httpPort=9090 --prefix=/jenkins
+
+java -jar jenkins.war --httpsPort=9090  or HTTPS at 9090
+
+java -DJENKINS_HOME=/Users/<userName>/jenkins -jar jenkins.war  --httpPort=8484
+
+To permanentky change the port
+Open the jenkins.xml in the jenkins home folder (usually C:\Program Files (x86)\Jenkins) and change the port number:
+httpPort=xxxx to
+httpPort=yyyy
+then restart the service. it should change the setting permanently.
+
+On Windows (with Windows Service).
+
+Edit the file C:\Program Files (x86)\Jenkins\jenkins.xml with 8083 if you want 8083 port.
+
+<arguments>-Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar 
+"%BASE%\jenkins.war" --httpPort=8083</arguments
+
+
+Change the '/etc/init.d/jenkins' shell
+
+check_tcp_port "http" "$HTTP_PORT" "8080" || return 1
+
+
+For Fedora, RedHat, CentOS and alike, any customization should be done within /etc/sysconfig/jenkins instead of /etc/init.d/jenkins. The purpose of the first file is exactly the customization of the second file.
+
+So, within /etc/sysconfig/jenkins, there is a the JENKINS_PORT variable that holds the port number on which Jenkins is running.
+
+
+IN Ubuntu 14.4/Linux   change the file /etc/default/jenkins
+
+E.g.
+
+   #HTTP_PORT=8080
+   HTTP_PORT=8083
+
+
+
+Add the following two lines after DAEMON_ARGS in the file /etc/init.d/jenkins
+
+HTTP_PORT=8010
+JENKINS_ARGS="--httpPort=$HTTP_PORT"
+
+
+and restart the service
+
+    service jenkins restart
+
+ 15
+down vote
+	
+
+In CentOS/RedHat
+
+vim /etc/sysconfig/jenkins
+
+# Port Jenkins is listening on.
+# Set to -1 to disable
+#
+JENKINS_PORT="8080"
+
+To start,stop and restart jenkins from EXE on windows
+ 
+
+Go to jenkins installation, open the cmd and run
+
+   to stop:
+   jenkins.exe stop
+
+   to start:
+   jenkins.exe start
+
+   to restart:
+   jenkins.exe restart
+
+
+
+

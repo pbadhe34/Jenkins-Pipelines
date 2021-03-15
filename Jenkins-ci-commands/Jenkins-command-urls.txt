@@ -1,0 +1,32 @@
+
+From URL in the browser
+http://<jenkins.server>/restart
+http://<jenkins.server>/safeRestart
+http://<jenkins.server>/exit
+http://<jenkins.server>/safeExit
+http://<jenkins.server>/quietDown
+http://<jenkins.server>/cancelQuietDown
+
+  With CURL REST Tool
+  Using cURL:
+
+curl -X POST -u <user>:<password> http://<jenkins.server>/restart
+
+curl -X POST -<user>:<password> http://<jenkins.server>/safeRestart
+
+curl -X POST -u <user>:<password> http://<jenkins.server>/exit
+
+curl -X POST -u <user>:<password> http://<jenkins.server>/safeExit
+
+curl -X POST -u <user>:<password> http://<jenkins.server>/quietDown
+
+curl -X POST -u <user>:<password> http://<jenkins.server>/cancelQuietDown
+
+With Jenkins CLi
+java -jar jenkins-cli.jar -s http://<jenkins-server>/ restart
+java -jar jenkins-cli.jar -s http://<jenkins-server>/ safe-restart
+java -jar jenkins-cli.jar -s http://<jenkins-server>/ shutdown
+java -jar jenkins-cli.jar -s http://<jenkins-server>/ safe-shutdown
+java -jar jenkins-cli.jar -s http://<jenkins-server>/ quiet-down
+java -jar jenkins-cli.jar -s http://<jenkins-server>/ cancel-quiet-down
+

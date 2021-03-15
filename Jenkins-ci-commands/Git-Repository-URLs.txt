@@ -1,0 +1,5 @@
+  file:///D:/MyGitApps
+
+   http://www.github.com/MyApps
+
+   git://localhost/myTest

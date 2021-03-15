@@ -1,0 +1,94 @@
+
+//Get the list of all jobs configured
+
+import java.util.Random 
+Random random = new Random()  
+
+hudson.model.Hudson.instance.items.each { job ->
+  println ("Class: ${job.class}") 
+  println ("Name: ${job.name}")
+  println ("Root Dir: ${job.rootDir}")
+  println ("URL: ${job.url}")
+  println ("Absolute URL: ${job.absoluteUrl}") 
+      
+      if ("MyTest".equals(job.name)){
+     		println ("Description: ${job.description}")
+                job.setDescription("This is a test id: ${random.nextInt(99999999)}")
+     }
+  }
+
+
+// Get the list of jobs that were SUCCESSFUL
+// ------------------------------------------
+ 
+// -- Get Active Jobs with 'Buildable' state
+activeJobs = hudson.model.Hudson.instance.items.findAll{job -> job.isBuildable()}
+ 
+// -- Get a subset of buildable jobs with result status of 'SUCCESSFUL'
+goodRuns = activeJobs.findAll{job -> job.lastBuild != null && job.lastBuild.result == hudson.model.Result.SUCCESS}
+ 
+// Do something with them - e.g. listing them
+goodRuns.each{run -> println "Successful Job Name: ${run.name}"}
+
+GoodRunsCount = goodRuns.size
+
+println "Successful Jobs : ${GoodRunsCount}"
+
+
+// Get the list of jobs that were FAILED
+// ------------------------------------------
+ 
+// -- Get Active Jobs with 'Buildable' state
+activeJobs = hudson.model.Hudson.instance.items.findAll{job -> job.isBuildable()}
+ 
+// -- Get a subset of buildable jobs with result status of 'FAILURE'
+failedRuns = activeJobs.findAll{job -> job.lastBuild != null && job.lastBuild.result == hudson.model.Result.FAILURE}
+failedRunsCount = failedRuns.size
+ 
+// Do something with them - e.g. listing them
+failedRuns.each{run -> println "FAILED Job Name: ${run.name}"}
+println "Total Failure Count: ${failedRunsCount}"
+
+//Read all the environmnet variable values
+def env = System.getenv()
+  env.each {
+ println it
+}
+
+//To read specific param value
+def env = System.getenv()
+println env['BUILD_NUMBER']
+
+
+
+
+//Get the lsat of salve nodes
+
+for (slave in hudson.model.Hudson.instance.slaves) {
+   println "Slave class: ${slave.class}"
+   println "Slave name: ${slave.name}" 
+   println "Slave URL: ${slave.rootPath}"
+   println "Slave URL: ${slave.labelString}\n"
+}
+
+//Clear Build Queue
+
+
+/*** BEGIN META {
+  "name" : "Clear build queue",
+  "comment" : "If you accidently trigger a lot of unneeded builds, it is useful to be able to <b>cancel</b> them all",
+  "parameters" : [],
+  "core": "1.300",
+  "authors" : [
+    { name : "Viju" }
+  ]
+} END META**/
+import hudson.model.*
+def queue = Hudson.instance.queue
+println "Queue contains ${queue.items.length} items"
+queue.clear()
+println "Queue cleared"
+
+
+ 
+
